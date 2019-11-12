@@ -22,29 +22,23 @@ export default {
         {
           name: '/',
           title: '首页',
-          icon: 'home-o',
-          normal:
-            'http://sucai.suoluomei.cn/sucai_zs/images/20190910093117-fx2.png',
-          active:
-            'http://sucai.suoluomei.cn/sucai_zs/images/20190910093117-fx.png'
+          // icon: 'home-o',
+          normal: require('@/assets/image/home.png'),
+          active: require('@/assets/image/homeHL.png')
         },
         {
           name: '/activity',
           title: '活动',
-          icon: 'home-o',
-          normal:
-            'http://sucai.suoluomei.cn/sucai_zs/images/20190910093117-xx.png',
-          active:
-            'http://sucai.suoluomei.cn/sucai_zs/images/20190910093117-xx2.png'
+          // icon: 'home-o',
+          normal: require('@/assets/image/hd.png'),
+          active: require('@/assets/image/hdHL.png')
         },
         {
           name: '/user',
           title: '我的',
-          icon: 'friends-o',
-          normal:
-            'http://sucai.suoluomei.cn/sucai_zs/images/20190910093117-wd.png',
-          active:
-            'http://sucai.suoluomei.cn/sucai_zs/images/20190910093117-wd2.png'
+          // icon: 'friends-o',
+          normal: require('@/assets/image/user.png'),
+          active: require('@/assets/image/userHL.png')
         }
       ]
     }
