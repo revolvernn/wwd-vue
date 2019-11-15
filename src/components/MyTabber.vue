@@ -20,7 +20,7 @@ export default {
       active: 0,
       tabbars: [
         {
-          name: '/',
+          name: '/index',
           title: '首页',
           // icon: 'home-o',
           normal: require('@/assets/image/home.png'),
