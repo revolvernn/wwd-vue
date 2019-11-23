@@ -47,7 +47,6 @@ Axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   console.log(error)
-  debugger
   // 对响应错误做点什么
   if (error.response) {
     handlerError(error.response.status, error.response.data.code)
@@ -301,6 +300,22 @@ export function getCurrentUserinfo () {
     })
   })
 }
+
+/**
+ * 获取当前登录用户信息
+ * @returns {Promise<any>}
+ */
+export function getArea () {
+  return new Promise((resolve, reject) => {
+    get('/base/areas', {t: new Date().getTime()
+    }).then(function (r) {
+      let content = r.data.data.content
+      resolve(content)
+    }).catch(err => {
+      reject(err)
+    })
+  })
+}
 /**
  * 是否已登录
  * @returns {Promise<any>}
@@ -387,6 +402,7 @@ const http = {
   put: put,
   putJson: putJson,
   getDictsByType: getDictsByType,
+  getArea: getArea,
   getDictByValue: getDictByValue,
   getRegExps: getRegExps,
   getRegExpByType: getRegExpByType,

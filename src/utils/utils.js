@@ -1,9 +1,57 @@
+const formatDate = (val) => {
+  let start = new Date(val)
+  let y = start.getFullYear()
+  let m = (start.getMonth() + 1) >= 10 ? (start.getMonth() + 1) : '0' + (start.getMonth() + 1)
+  let d = (start.getDate()) >= 10 ? (start.getDate()) : '0' + (start.getDate())
+  return y + '-' + m + '-' + d
+}
+
 const isArray = function (obj) {
   if (Array.isArray) {
     return Array.isArray(obj)
   } else {
     return Object.prototype.toString.call(obj) === '[object Array]'
   }
+}
+const vueTree = function (arr) {
+  if (!arr || arr.length === 0) return []
+  let sourceArr = arr || []
+  let rooArr = []
+  sourceArr.forEach(function (v, index, arr) {
+    if (v.type === 'province') {
+      rooArr.push(v)
+    }
+  })
+  rooArr.forEach(function (v, index, arr) {
+    v.label = v.name
+    v.value = v.id
+    let c = getChildren(v, sourceArr)
+    if (c.length > 0) {
+      v.children = c
+    }
+  })
+
+  function getChildren (root, arr) {
+    let childrenArr = []
+    sourceArr.forEach(function (v, index, arr) {
+      if (v.parentId === root.id) {
+        childrenArr.push(v)
+      }
+    })
+    childrenArr.forEach(function (v, index, arr) {
+      v.label = v.name
+      v.value = v.id
+      let c = getChildren(v, sourceArr)
+      if (c.length > 0) {
+        v.children = c
+      }
+    })
+    if (childrenArr.length === 0) {
+      return []
+    }
+    return childrenArr
+  }
+  return rooArr
 }
 // 将打平的数组改成父子关系数组
 const arrayToTree = function (sNodes) {
@@ -174,7 +222,9 @@ const guid = function () {
   return (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4())
 }
 const utils = {
+  formatDate: formatDate,
   isArray: isArray,
+  vueTree: vueTree,
   arrayToTree: arrayToTree,
   loadDataControl: {
     add: addLoadDataControl,

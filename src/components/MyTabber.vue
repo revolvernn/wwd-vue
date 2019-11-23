@@ -13,7 +13,9 @@
 export default {
   name: 'MyTabber',
   props: {
-    value: 0
+    value: {
+      default: 0
+    }
   },
   data () {
     return {
