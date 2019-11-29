@@ -1,6 +1,6 @@
 <template>
 <div>
-  <van-tabbar value="" v-model="active" inactive-color="#777777" active-color="#000000">
+  <van-tabbar value="" v-model="active" inactive-color="#777777" active-color="#000000" @change="onChange">
     <van-tabbar-item v-for="(item,index) in tabbars"  :icon="(item.icon)" :key="index" :to="(item.name)">
       <span>{{item.title}}</span>
       <img slot="icon" slot-scope="props" :src="props.active ? item.active : item.normal" v-if="!item.icon"/>
@@ -22,7 +22,7 @@ export default {
       active: 0,
       tabbars: [
         {
-          name: '/index',
+          name: '/',
           title: '首页',
           // icon: 'home-o',
           normal: require('@/assets/image/home.png'),
@@ -51,6 +51,12 @@ export default {
   watch: {
     value (val) {
       this.active = val
+    }
+  },
+  methods: {
+    onChange (index) {
+      console.log(index)
+      this.$emit('onChange', index)
     }
   }
 }

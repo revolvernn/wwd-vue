@@ -1,10 +1,13 @@
 <template>
-  <div>{{label || text}}</div>
+  <div><van-icon v-if="icon" :class="'iconfont '+ icon " /> {{label || text}}{{otherText}}</div>
 </template>
 
 <script>
 export default {
   props: {
+    icon: {
+      default: null
+    },
     type: {
       default: null
     },
@@ -12,6 +15,9 @@ export default {
       default: null
     },
     text: {
+      default: ''
+    },
+    otherText: {
       default: ''
     }
   },

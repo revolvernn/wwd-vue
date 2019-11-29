@@ -50,7 +50,7 @@ export default {
       self.$http.post('/login', self.form)
         .then(function (response) {
           // 跳转到主页面
-          self.$router.push({name: 'Index'})
+          self.$router.push({name: 'index'})
         })
         .catch(function (response) {
           console.log(response)

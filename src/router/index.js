@@ -4,6 +4,7 @@ import Index from '@/pages/index'
 import Activity from '@/pages/activity/activity'
 import User from '@/pages/user/user'
 import Login from '@/pages/login/login'
+import UserDetail from '@/pages/user/user-detail'
 Vue.use(Router)
 
 export default new Router({
@@ -11,18 +12,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Login',
-      component: Login
+      name: 'Index',
+      component: Index
     },
     {
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/index',
-      name: 'Index',
-      component: Index
     },
     {
       path: '/activity',
@@ -33,6 +29,11 @@ export default new Router({
       path: '/user',
       name: 'User',
       component: User
+    },
+    {
+      path: '/user-detail',
+      name: 'UserDetail',
+      component: UserDetail
     }
   ]
 })

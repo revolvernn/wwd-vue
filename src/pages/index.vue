@@ -3,7 +3,7 @@
     <van-sticky class="search">
       <van-search v-model="searchForm.keyword" placeholder="请输入搜索关键词" @focus="showSearchPopup(true)"></van-search>
     </van-sticky>
-    <van-popup v-model="show" position="top" :style="{ height: '40%' }" >
+    <van-popup v-model="show" position="top" :style="{opacity: 0.85}" >
       <van-sticky class="search">
         <van-search v-model="searchForm.keyword" placeholder="请输入搜索关键词" show-action shape="round" @search="onSearch">
           <div slot="action" @click="onSearch">搜索</div>
@@ -20,20 +20,32 @@
     </van-popup>
     <van-pull-refresh v-model="pullLoading" @refresh="onRefresh">
       <van-list  v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-        <van-cell class="index-list-cell"  v-for="(item,index) in listData" :key="index">
-          <van-card  :title="item.wwdUserDto.nickname || '-'" :thumb="$config.file.getDownloadUrl(photo[item.wwdUserDto.userId])">
-            <div slot="desc">
-              <dict-text type="gender" :val="item.wwdUserDto.gender"/>
+        <van-cell class="index-list-cell"  v-for="(item,index) in listData" :key="index" :to="{path:'/user-detail',query: {wwdUserId:item.wwdUserDto.id}}">
+          <van-panel status="状态">
+            <div class="image-list" v-for="(pic, i) in item.wwdUserPicDtos" :key="i" v-if="pic.type == 'main'">
+              <van-image lazy-load height="250" width="100%" fit="cover" :src="$config.file.getDownloadUrl(pic.picOriginUrl) + '?x-oss-process=image/resize,h_528/auto-orient,1'">
+              </van-image>
             </div>
-            <div slot="tags">
-              <van-tag plain type="danger">标签</van-tag>
-              <van-tag plain type="danger">标签</van-tag>
+            <div slot="header">
+              <div class="van-cell van-panel__header">
+                <van-image
+                  lazy-load
+                  round
+                  width="3rem"
+                  height="3rem"
+                  :src="$config.file.getDownloadUrl(photo[item.wwdUserDto.userId])"
+                />
+                <div class="van-cell__title">
+                  <span>{{item.wwdUserDto.nickname || '-'}}</span>
+                  <div class="van-cell__label"><span><dict-text type="gender" :val="item.wwdUserDto.gender" :other-text="' / '+ $utils.ageFormat(item.wwdUserDto.birthDay)"/></span></div>
+                </div>
+              </div>
             </div>
             <div slot="footer">
-              <van-button size="mini">按钮</van-button>
-              <van-button size="mini">按钮</van-button>
+              <van-button size="small"><van-icon name="location" /> <span>{{ item.wwdUserAreaDto.nowProvinceName }} - {{ item.wwdUserAreaDto.nowCityName }}</span></van-button>
+              <van-button size="small" v-if="item.wwdUserDto.college"><van-icon class="iconfont icon-daxuemingcheng"/>{{ item.wwdUserDto.college }}</van-button>
             </div>
-          </van-card>
+          </van-panel>
         </van-cell>
       </van-list>
     </van-pull-refresh>
@@ -156,6 +168,19 @@ export default {
     width: 100%;
   }
   .index-list-cell{
-    padding: 10px 5px;
+    padding: 5px 5px;
+  }
+  .image-list{
+    max-height: 250px;
+    overflow: hidden;
+  }
+  .van-panel__header{
+    padding: 5px;
+  }
+  .van-cell__title{
+    margin-left: .5rem;
+  }
+  .van-panel__footer {
+    padding: 8px 0px;
   }
 </style>

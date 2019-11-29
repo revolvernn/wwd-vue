@@ -5,7 +5,17 @@ const formatDate = (val) => {
   let d = (start.getDate()) >= 10 ? (start.getDate()) : '0' + (start.getDate())
   return y + '-' + m + '-' + d
 }
+const ageFormat = (val) => {
+  if (!val) {
+    return ''
+  }
+  let birthDay = new Date(val)
+  let nowDate = new Date()
 
+  let diff = nowDate.getTime() - birthDay.getTime()
+  let age = Math.floor(diff / 1000 / 60 / 60 / 24 / 365)
+  return age + '岁'
+}
 const isArray = function (obj) {
   if (Array.isArray) {
     return Array.isArray(obj)
@@ -223,6 +233,7 @@ const guid = function () {
 }
 const utils = {
   formatDate: formatDate,
+  ageFormat: ageFormat,
   isArray: isArray,
   vueTree: vueTree,
   arrayToTree: arrayToTree,
